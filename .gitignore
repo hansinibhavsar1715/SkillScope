@@ -1,0 +1,16 @@
+# Environment variables - NEVER commit this, it has API keys
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Raw data (optional - keep out of repo if large, or remove this line if you want to include it)
+data/raw/
+
+# OS files
+.DS_Store
+Thumbs.db
