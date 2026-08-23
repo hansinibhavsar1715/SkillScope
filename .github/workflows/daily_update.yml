@@ -1,0 +1,40 @@
+name: Daily SkillScope Data Update
+
+on:
+  schedule:
+    # Runs at 6:00 AM IST (00:30 UTC) every day
+    - cron: '30 0 * * *'
+  workflow_dispatch:  # allows manually triggering from the GitHub Actions tab too
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests python-dotenv
+
+      - name: Fetch today's job postings
+        env:
+          ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
+          ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
+        run: python fetch_adzuna.py
+
+      - name: Load data into database
+        run: python load_data.py
+
+      - name: Commit and push updated database
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add skillscope.db
+          git diff --staged --quiet || git commit -m "Automated daily data update - $(date -u +'%Y-%m-%d')"
+          git push
