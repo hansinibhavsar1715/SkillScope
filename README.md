@@ -4,7 +4,7 @@
 
 Unlike typical portfolio projects built on static Kaggle datasets, SkillScope is powered by a **live, self-updating data pipeline** — the same architecture pattern used in real production analytics systems.
 
-🔗 **Live Dashboard:** [Local URL: http://localhost:8501]
+🔗 **Live Dashboard:** https://skillscope-hansini.streamlit.app/
 🔗 **GitHub Repository:** https://github.com/hansinibhavsar1715/SkillScope
 
 ---
